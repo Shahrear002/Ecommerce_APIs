@@ -48,7 +48,7 @@ router.post('/register', (req, res) => {
     }
 })
 
-// @route POST users/login
+// @route POST api/users/login
 // @description user login
 // @access Public
 router.post('/login', (req, res) => {
@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
 
     //Check validation
     if(!isValid) {
-        res.status(400).json(errors)
+        res.status(400).send(errors)
     } else {
         const email = req.body.email
         const pass = req.body.password
