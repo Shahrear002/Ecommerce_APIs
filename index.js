@@ -5,6 +5,7 @@ const sequelize = require('./utils/db')
 
 const user = require('./routes/api/users')
 const product = require('./routes/api/products')
+const order = require('./routes/api/orders')
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ require('./config/passport')(passport)
 
 app.use('/api/users', user)
 app.use('/api/products', product)
+app.use('/api/orders', order)
 
 const port = process.env.port || 6000
 
