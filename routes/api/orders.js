@@ -28,7 +28,7 @@ router.post('/create-order/:product_id', passport.authenticate('jwt', { session:
     Order.create({
         userId: req.user.id,
         productId: req.params.product_id
-    }).then(order => res.status(200).send(order))
+    }).then(order => res.status(200).send('Inserted successfully'))
     .catch(error => console.log(error))
 })
 

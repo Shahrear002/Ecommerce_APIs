@@ -38,7 +38,7 @@ router.post('/register', (req, res) => {
                         password: hash,
                         gender: req.body.gender,
                         age: req.body.age
-                    }).then(user => res.status(200).send(user))
+                    }).then(user => res.status(200).send('Inserted successfully'))
                     .catch(error => console.log(error))
                 })
             }
