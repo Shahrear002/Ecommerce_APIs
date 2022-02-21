@@ -41,9 +41,18 @@ router.post('/add-product/:id', passport.authenticate('jwt', { session : false})
             imagePath: req.body.imagePath,
             description: req.body.description,
             price: req.body.price
-        }).then(product => res.status(200).send('Product Inserted Successfully'))
+        }).then(product => res.status(200).send('Product Inserted Successful'))
         .catch(error => console.log(error))
     }
+})
+
+// @route GET api/products/all-products
+// @description get all products
+// @access Private
+router.get('/all-products', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Product.findAll()
+        .then(products => res.status(200).send(products))
+            .catch(error => console.log(error))
 })
 
 module.exports = router
