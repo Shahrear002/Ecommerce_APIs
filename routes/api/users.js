@@ -77,7 +77,7 @@ router.post('/login', (req, res) => {
                         age: user.age
                     }
                     
-                    jwt.sign(payload, process.env.secretOrKey, { expiresIn: '180s' }, (error, token) => {
+                    jwt.sign(payload, process.env.secretOrKey, { expiresIn: '600s' }, (error, token) => {
                         res.status(200).send({ success: true, token: "Bearer " + token })
                     })
                 } else {

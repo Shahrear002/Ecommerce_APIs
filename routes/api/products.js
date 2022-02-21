@@ -25,6 +25,22 @@ router.post('/add-category', passport.authenticate('jwt', { session: false }), (
     }
 })
 
+// @route GET api/products/all-category
+// @description get all product category
+// @access Private
+router.get('/all-category', passport.authenticate('jwt', { session: false}), (req, res) => {
+    Category.findAll().then(categories => {
+        var arr = []
+        categories.forEach(cat => {
+            arr.push({
+                category_id: cat.id,
+                category_name: cat.name
+            })
+        })
+        res.status(200).send(arr)
+    }).catch(error => console.log(error))
+})
+
 // @route POST api/products/add-products
 // @description add products
 // @access Private
@@ -50,8 +66,18 @@ router.post('/add-product/:id', passport.authenticate('jwt', { session : false})
 // @access Private
 router.get('/all-products', passport.authenticate('jwt', { session: false }), (req, res) => {
     Product.findAll()
-        .then(products => res.status(200).send(products))
-            .catch(error => console.log(error))
+        .then(products => {
+            const arr = []
+            products.forEach(product => {
+                arr.push({
+                    name: product.name,
+                    Image: product.imagePath,
+                    description: product.description,
+                    price: product.price
+                })
+            })
+            res.status(200).send(arr)
+        }).catch(error => console.log(error))
 })
 
 module.exports = router

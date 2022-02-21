@@ -4,6 +4,8 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 const Order = require('../../models/Order')
+const User = require('../../models/User')
+const Product = require('../../models/Product')
 
 // @route POST api/orders/create-order
 // @description create an order
@@ -30,6 +32,14 @@ router.post('/create-order/:product_id', passport.authenticate('jwt', { session:
     .catch(error => console.log(error))
 })
 
-
+// @route GET api/orders/all orders
+// @description get all orders
+// @access Private
+router.get('/all-orders', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Order.findAll()
+        .then(orders => {
+            res.status(200).send(orders)
+        }).catch(error => console.log(error))
+})
 
 module.exports = router
