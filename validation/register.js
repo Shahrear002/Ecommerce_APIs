@@ -45,5 +45,5 @@ module.exports = validateRegisterInput = (data) => {
   return {
     errors,
     isValid: isEmpty(errors)
-  };
-};
+  }
+}

@@ -1,7 +1,10 @@
 const express = require('express')
+const dotenv = require('dotenv')
 const sequelize = require('./utils/db')
 
 const user = require('./routes/api/users')
+
+dotenv.config()
 
 sequelize.sync()
 
