@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const Order = require('../../models/Order')
 const User = require('../../models/User')
 const Product = require('../../models/Product')
+const Sequelize = require('sequelize')
 
 // @route POST api/orders/create-order
 // @description create an order
@@ -36,10 +37,22 @@ router.post('/create-order/:product_id', passport.authenticate('jwt', { session:
 // @description get all orders
 // @access Private
 router.get('/all-orders', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Order.findAll()
-        .then(orders => {
-            res.status(200).send(orders)
-        }).catch(error => console.log(error))
+    Order.findAll({
+        include: [
+            {
+                model: User,
+                attributes: ['name']
+            },
+            {
+                model: Product,
+                through: {
+                    attributes: []
+                }
+            }
+        ]
+    }).then(order => {
+        res.status(200).json(order)
+    }).catch(error => console.log(error))
 })
 
 module.exports = router

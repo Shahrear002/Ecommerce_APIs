@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../utils/db')
-const Product = require('./Product')
 const User = require('./User')
+const Product = require('./Product')
 
 const Order = sequelize.define('Order', {
     id: {
@@ -10,14 +10,6 @@ const Order = sequelize.define('Order', {
         autoIncrement: true,
         primaryKey: true
     },
-    userId: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: User,
-            key: 'id'
-        }
-
-    },
     productId: {
         type: Sequelize.INTEGER,
         references: {
@@ -25,6 +17,17 @@ const Order = sequelize.define('Order', {
             key: 'id'
         }
     }
+    
+}, {
+    timestamps: false
 })
+
+Order.belongsTo(User, {
+    foreignKey: {
+        name: 'userId'
+    }
+})
+
+Order.belongsToMany(Product, { through: 'OrderedProduct', as: 'orders', foreignKey: 'orderId' })
 
 module.exports = Order

@@ -65,13 +65,14 @@ router.post('/add-product/:id', passport.authenticate('jwt', { session : false})
 // @description get all products
 // @access Private
 router.get('/all-products', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Product.findAll()
+    Product.findAll( { include: { model: Category } } )
         .then(products => {
             const arr = []
             products.forEach(product => {
                 arr.push({
+                    categoryName: product.Category.name,
                     name: product.name,
-                    Image: product.imagePath,
+                    image: product.imagePath,
                     description: product.description,
                     price: product.price
                 })

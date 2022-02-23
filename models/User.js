@@ -1,6 +1,7 @@
+const express = require('express')
 const Sequelize = require('sequelize')
-
 const sequelize = require('../utils/db')
+//const Order = require('./Order')
 
 const User = sequelize.define('User', {
     id: {
@@ -30,6 +31,8 @@ const User = sequelize.define('User', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
+}, {
+    timestamps: false
 })
 
 module.exports = User
