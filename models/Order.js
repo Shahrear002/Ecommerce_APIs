@@ -10,7 +10,7 @@ const Order = sequelize.define('Order', {
         autoIncrement: true,
         primaryKey: true
     },
-    productId: {
+    product_id: {
         type: Sequelize.INTEGER,
         references: {
             model: Product,
@@ -28,6 +28,10 @@ Order.belongsTo(User, {
     }
 })
 
-Order.belongsToMany(Product, { through: 'OrderedProduct', as: 'orders', foreignKey: 'orderId' })
+Order.belongsTo(Product, {
+    foreignKey: {
+        name: 'product_id'
+    }
+})
 
 module.exports = Order

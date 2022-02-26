@@ -28,7 +28,7 @@ router.post('/create-order/:product_id', passport.authenticate('jwt', { session:
     
     Order.create({
         userId: req.user.id,
-        productId: req.params.product_id
+        product_id: req.params.product_id
     }).then(order => res.status(200).send('Inserted successfully'))
     .catch(error => console.log(error))
 })
@@ -45,13 +45,19 @@ router.get('/all-orders', passport.authenticate('jwt', { session: false }), (req
             },
             {
                 model: Product,
-                through: {
-                    attributes: []
-                }
+                attributes: ['name', 'price']
             }
         ]
     }).then(order => {
-        res.status(200).json(order)
+        const arr = []
+        for(let i = 0; i < order.length; i++) {
+            arr.push({
+                userName: order[i].User.name,
+                productName: order[i].Product.name,
+                productPrice: order[i].Product.price
+            })
+        }
+        res.status(200).json(arr)
     }).catch(error => console.log(error))
 })
 

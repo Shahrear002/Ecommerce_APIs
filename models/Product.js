@@ -43,17 +43,5 @@ Product.belongsTo(Category, {
         name: 'categoryId'
     }
 })
-/*
-Product.hasMany(Order, {
-    foreignKey: {
-        name: 'productId',
-        allowNull: false
-    }
-})*/
-
-
 
 module.exports = Product
-
-const Order = require('./Order')
-Product.belongsToMany(Order, { through: 'OrderedProduct', as: 'products', foreignKey: 'ProductId' })

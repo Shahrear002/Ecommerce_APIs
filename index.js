@@ -1,13 +1,11 @@
 const express = require('express')
-const dotenv = require('dotenv')
 const passport = require('passport')
+require('dotenv').config()
 const sequelize = require('./utils/db')
 
 const user = require('./routes/api/users')
 const product = require('./routes/api/products')
 const order = require('./routes/api/orders')
-
-dotenv.config()
 
 sequelize.sync()
 
